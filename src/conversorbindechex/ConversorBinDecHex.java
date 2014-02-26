@@ -8,7 +8,8 @@ package conversorbindechex;
 
 /**
  *
- * @author jarc
+ * @author Sakcret Geek Star Blue
+ * @descrition Programa que convierte entre formatos Binario Decimal Hexadecimal
  */
 public class ConversorBinDecHex {
 
@@ -16,7 +17,10 @@ public class ConversorBinDecHex {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        VentanaPrincipal vp=new VentanaPrincipal();
+        vp.setTitle("Conversor Binario/Decimal/Hexadecimal");
+        vp.setVisible(true);
+        vp.setResizable(false);
     }
     
 }
