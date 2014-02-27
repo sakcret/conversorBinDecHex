@@ -5,7 +5,9 @@
  */
 package conversorbindechex;
 
-import javax.swing.JOptionPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,6 +20,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
+        validaTxtBinario(this.txt_binario);
+        this.validaTxtDecimal(txt_decimal);
+        this.validaTxtHexadecimal(this.txt_hexadecimal);
     }
 
     /**
@@ -43,6 +48,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txt_binario.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         txt_binario.setText("0");
         txt_binario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_binarioKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_binarioKeyReleased(evt);
             }
@@ -50,6 +58,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         txt_hexadecimal.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         txt_hexadecimal.setText("0");
+        txt_hexadecimal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_hexadecimalKeyReleased(evt);
+            }
+        });
 
         txt_decimal.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         txt_decimal.setText("0");
@@ -84,23 +97,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(97, 97, 97))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(13, 13, 13)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_binario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_decimal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_hexadecimal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_hexadecimal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                                    .addComponent(txt_decimal, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_binario))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,12 +155,69 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_decimalKeyReleased
 
     private void txt_binarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_binarioKeyReleased
-        String str_binario = this.txt_binario.getText();
-        int decimal = Conversor.binarioToDecimal(str_binario);
-        this.txt_decimal.setText(Integer.toString(decimal));
-        this.txt_hexadecimal.setText(Conversor.decimalToHexadecimal(decimal));
+
+        try {
+            String str_binario = this.txt_binario.getText();
+            int decimal = Conversor.binarioToDecimal(str_binario);
+            this.txt_decimal.setText(Integer.toString(decimal));
+            this.txt_hexadecimal.setText(Conversor.decimalToHexadecimal(decimal));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_txt_binarioKeyReleased
 
+    private void txt_hexadecimalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hexadecimalKeyReleased
+        // TODO add your handling code here:
+        try {
+            String hexadecimal_txt = this.txt_hexadecimal.getText();
+            int decimal = Conversor.hexadecimalToDecimal(hexadecimal_txt);
+            this.txt_decimal.setText(decimal + "");
+            this.txt_binario.setText(Conversor.decimalToBinario(decimal));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_txt_hexadecimalKeyReleased
+
+    private void txt_binarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_binarioKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txt_binarioKeyPressed
+
+    void validaTxtBinario(JTextField bin) {
+        bin.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char char_typed=e.getKeyChar();
+                if(char_typed!='0'&& char_typed!='1'){
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+    }
+    
+    void validaTxtHexadecimal(JTextField hex) {
+        hex.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char char_typed=e.getKeyChar();
+                if("ABCDEFabcdef0123456789".indexOf(char_typed)==-1){
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+    }
+    
+    void validaTxtDecimal(JTextField dec) {
+        dec.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char char_typed=e.getKeyChar();
+                if(!Character.isDigit(char_typed)){
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

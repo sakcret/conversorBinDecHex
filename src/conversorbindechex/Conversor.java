@@ -37,6 +37,31 @@ abstract public class Conversor {
         return resultado;
     }
     
+    static int hexadecimalToDecimal(String hexadecimal){
+        int suma = 0;
+        //invertir cadena en hexadecimal Ejemplo 2A  en A2
+        StringBuilder hexadecimal_reverse = new StringBuilder(hexadecimal).reverse();
+        for (int i = 0; i < hexadecimal_reverse.length(); i++) {
+            char char_at = hexadecimal_reverse.charAt(i);
+            if (char_at == 'A'||char_at=='a') {
+                suma += 10 * Math.pow(16, i);
+            } else if (char_at=='B'||char_at=='b') {
+                suma += 11 * Math.pow(16, i);
+            } else if (char_at=='C' ||char_at=='c') {
+                suma += 12 * Math.pow(16, i);
+            } else if (char_at=='D'||char_at=='d') {
+                suma += 13 * Math.pow(16, i);
+            } else if (char_at=='E'||char_at=='e') {
+                suma += 14 * Math.pow(16, i);
+            } else if (char_at=='F'||char_at=='f') {
+                suma += 15 * Math.pow(16, i);
+            }else{
+                suma+=(Integer.parseInt(char_at+""))* Math.pow(16, i);;
+            }
+        }
+        return suma;
+    }
+    
     static String decimalToHexadecimal(int decimal){
         int cociente = 0;
         String str_hexadecimal = "";
